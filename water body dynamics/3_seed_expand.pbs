@@ -1,0 +1,14 @@
+#!/bin/bash
+#PBS -N 1_1
+#PBS -l nodes=1:ppn=20
+#PBS -j n
+#PBS -l walltime=27:00:00
+
+source /public/home/mfeng/anaconda3/etc/profile.d/conda.sh
+conda activate geo
+
+cd $PBS_O_WORKDIR
+
+NP=`cat $PBS_NODEFILE | wc -l`
+
+mpiexec -n $NP -hostfile $PBS_NODEFILE python 3_seed_expand2.py -ihy /public/home/mfeng/ynsu/1_1/data/2_s_tiles -ijr /public/home/mfeng/ynsu/1_1/data/1_tiles -ta /public/home/mfeng/ynsu/1_1/tasks/tasks.shp -o /public/home/mfeng/ynsu/1_1/result

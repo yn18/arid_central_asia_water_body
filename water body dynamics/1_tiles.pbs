@@ -1,0 +1,10 @@
+#!/bin/bash
+#PBS -N tiles1
+#PBS -l nodes=3:ppn=6
+#PBS -j n
+#PBS -l walltime=27:00:00
+cd $PBS_O_WORKDIR
+
+NP=`cat $PBS_NODEFILE | wc -l`
+
+mpiexec -n $NP -hostfile $PBS_NODEFILE python 1_tiles1.py -ta /public/home/mfeng/ynsu/1_1/tasks/tasks.shp -i /public/home/mfeng/ynsu/mosaic_water/data/JRC_silkroad_1984_2020/JRC_1_1_1990_1999 -o /public/home/mfeng/ynsu/1_1/data/1_tiles1

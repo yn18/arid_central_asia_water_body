@@ -1,0 +1,14 @@
+#!/bin/bash
+#PBS -N 1_1
+#PBS -l nodes=2:ppn=2
+#PBS -j n
+#PBS -l walltime=27:00:00
+
+source /public/home/mfeng/anaconda3/etc/profile.d/conda.sh
+conda activate geo
+
+cd $PBS_O_WORKDIR
+
+NP=`cat $PBS_NODEFILE | wc -l`
+
+mpiexec -n $NP -hostfile $PBS_NODEFILE python 4_mosaic_clip.py -i /public/home/mfeng/ynsu/1_1/result1 -o /public/home/mfeng/ynsu/1_1/result1_1 -ta /public/home/mfeng/ynsu/1_1/tasks/tasks.shp -m /public/home/mfeng/ynsu/mosaic_water/silkroad_shp/1_1_project.shp
